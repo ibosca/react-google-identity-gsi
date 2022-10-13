@@ -5,7 +5,7 @@ A simple library for getting the Google Login in your React project with ease.
 ## Installation
 
 ```bash
-$ npm install react-google-identity-gsi
+$ npm install @ibosca/react-google-identity-gsi
 ```
 
 ## Getting started
@@ -60,10 +60,3 @@ const onUserAuthenticatedWithGoogle = (data: any) => {
 ```
 
 Here you can decode the JWT token for showing the user information, or even send the token to a back-end app for exchange the Google token for a specific token of your app.
-
-
-# Progress: [Publishing your library](https://dev.to/alexeagleson/how-to-create-and-publish-a-react-component-library-2oe#publishing-your-library)
-
-
-Guide:
-https://dev.to/alexeagleson/how-to-create-and-publish-a-react-component-library-2oe
