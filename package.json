@@ -1,6 +1,6 @@
 {
   "name": "@ibosca/react-google-identity-gsi",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "A simple library for getting the Google Login in your React project with ease.",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
