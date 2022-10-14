@@ -5,7 +5,7 @@ A simple library for getting the Google Login in your React project with ease.
 ## Installation
 
 ```bash
-$ npm install @ibosca/react-google-identity-gsi
+$ npm install react-google-identity-gsi
 ```
 
 ## Getting started
