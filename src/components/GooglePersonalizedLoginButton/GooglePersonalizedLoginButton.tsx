@@ -1,37 +1,24 @@
 import GooglePersonalizedLoginButtonProps from "./GooglePersonalizedLoginButtonProps";
-import {useGoogle} from "../../hooks";
 import {useEffect} from "react";
+import { useGoogle } from "../../hooks";
+import { GoogleIdentityServiceRepository } from "../../repository/GoogleIdentityServiceRepository";
 
 function GooglePersonalizedLoginButton(props: GooglePersonalizedLoginButtonProps) {
 
     const elementId = 'react-google-identity-gsi-element';
-
-    const loginSetup = (google: any) => {
-        loginInit(google);
-        renderLoginButton(google);
-    };
-
-    const loginInit = (google: any) => {
-        google.accounts.id.initialize({
-            client_id: props.clientId,
-            callback: props.onUserAuthenticationSucceeded
-        });
-    };
-
-    const renderLoginButton = (google: any) => {
-        google.accounts.id.renderButton(
-            document.getElementById(elementId),
-            props.buttonCustomization
-        );
-    };
-
-    const callback = useGoogle(loginSetup);
+    const google = useGoogle(props.clientId);
 
     useEffect(() => {
-        callback();
-    });
+        if (!(google instanceof GoogleIdentityServiceRepository)) {
+            return;
+        }
 
-    return (<div id={elementId}/>);
+        const buttonConfig = {elementId, ...props.buttonCustomization}
+        google.setUp(buttonConfig, props.onUserAuthenticationSucceeded)
+
+    }, [google, props])
+
+    return (<div id={elementId} style={{minHeight: '40px'}}/>);
 }
 
 export default GooglePersonalizedLoginButton;

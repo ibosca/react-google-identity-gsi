@@ -1,26 +1,33 @@
-import {useState} from "react";
+import {useEffect, useState} from "react";
+import { GoogleIdentityServiceRepository } from "../../repository/GoogleIdentityServiceRepository";
 
-const useGoogle = (
-    callback: (google: any) => void,
-): (() => void) => {
+const useGoogle = (clientId: string): GoogleIdentityServiceRepository | undefined => {
 
-    const [google, setGoogle] = useState();
+    const [google, setGoogle] = useState<GoogleIdentityServiceRepository|undefined>();
 
-    window.onload = () => setGoogle((window as any).google);
+    useEffect(() => {
 
-    return (() => {
+        const repository = () => {
+            try {
+                return new GoogleIdentityServiceRepository(clientId);
+            }  catch (e) {
+                return undefined;
+            }
+        };
 
-        if (!google) {
-            setGoogle((window as any).google)
+        window.addEventListener('load', () => {
+            setGoogle(repository());
+        });
+
+        if (!(google instanceof GoogleIdentityServiceRepository)) {
+            setGoogle(repository());
         }
 
-        if (!google) {
-            return;
-        }
+    }, [clientId, google]);
 
-        callback(google);
-    });
-};
+    return google;
+
+}
 
 
 export default useGoogle;
